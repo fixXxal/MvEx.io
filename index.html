@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency Exchange</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <header>
+        <h1 class="logo">MvEx</h1>
+        <nav class="navbar">
+            <div class="container">
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="exchange.html">Exchange</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="login.html">Sign up / Sign in</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="intro">
+            <h2 class="subtitle">Welcome to MvEx</h2>
+            <p class="subtitle">Your trusted platform for cryptocurrency exchange. Buy and sell USDT with ease.</p>
+        </section>
+        <section class="features">
+            <h2 class="subtitle">Our Features</h2>
+            <ul>
+                <li class="subtitle">Secure Transactions</li>
+                <li class="subtitle">Competitive Exchange Rates</li>
+                <li class="subtitle">24/7 Customer Support</li>
+                <li class="subtitle">User-friendly Interface</li>
+            </ul>
+        </section>
+        <section class="actions">
+            <div class="animated-box unique-animation exchange-box button" onclick="goToExchange()" style="margin: 20px;">
+                <h2>Buy and Sell USDT</h2>
+                Click here to go to Exchange Page
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 MvEx. All rights reserved.</p>
+    </footer>
+
+    <!-- Menu Button -->
+    <button class="menu-button" id="menuButton">Menu</button>
+
+    <!-- Menu -->
+    <div class="menu" id="menu">
+        <a href="index.html">Home</a>
+        <a href="exchange.html">Exchange</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Sign Up / Sign In</a>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        function goToExchange() {
+            const box = document.querySelector('.unique-animation');
+            box.classList.add('click-animate');
+            setTimeout(() => {
+                window.location.href = 'exchange.html';
+            }, 1000); // Adjust the timeout to match the animation duration
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.fromTo(".logo", 
+                { opacity: 0, scale: 0.5, y: -50, rotation: -10 }, 
+                { opacity: 1, scale: 1, y: 0, rotation: 0, duration: 1, ease: "power3.out" }
+            );
+
+            gsap.fromTo(".subtitle", 
+                { opacity: 0, y: 20 }, 
+                { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: "power3.out" }
+            );
+
+            gsap.fromTo(".button", 
+                { opacity: 0, scale: 0.8 }, 
+                { opacity: 1, scale: 1, duration: 1, delay: 0.8, ease: "elastic.out(1, 0.5)" }
+            );
+
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ffffff"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        },
+                        "image": {
+                            "src": "img/github.svg",
+                            "width": 100,
+                            "height": 100
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffffff",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 6,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 400,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+
+            const menuButton = document.getElementById('menuButton');
+            setTimeout(() => {
+                menuButton.classList.add('clicked');
+            }, 500); // Delay to simulate falling down effect
+
+            menuButton.addEventListener('click', function() {
+                document.getElementById('menu').classList.toggle('active');
+            });
+
+            gsap.fromTo(".menu a", 
+                { opacity: 0, y: 20 }, 
+                { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: "power3.out", stagger: 0.2 }
+            );
+        });
+    </script>
+</body>
+</html>

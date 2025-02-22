@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excgange - MvEx</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <header>
+        <h1 class="logo">MvEx</h1>
+        <nav class="navbar">
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="exchange.html">Exchange</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="exchange-container fade-in">
+            <section class="exchange-box left-box slide-in delay-1s">
+                <h2>Sell USDT</h2>
+                <form id="exchangeForm">
+                    <label for="amount">Amount to Sell (USDT):</label>
+                    <input type="number" id="amount" name="amount" required oninput="showSellDetails()">
+                    <label for="accountNumber">Account Number:</label>
+                    <input type="text" id="accountNumber" name="accountNumber" required>
+                    <p id="sellDetails"></p>
+                    <button type="button" class="button" onclick="submitSell()">Submit</button>
+                </form>
+                <p id="result"></p>
+            </section>
+            <section class="exchange-box right-box slide-in delay-2s">
+                <h2>Buy USDT</h2>
+                <form id="buyForm">
+                    <label for="buyAmount">Amount to Buy (MVR):</label>
+                    <input type="number" id="buyAmount" name="buyAmount" required oninput="showBuyDetails()">
+                    <label for="walletAddress">Wallet Address:</label>
+                    <input type="text" id="walletAddress" name="walletAddress" required>
+                    <p id="buyDetails"></p>
+                    <button type="button" class="button" onclick="submitBuy()">Submit</button>
+                </form>
+                <p id="buyResult"></p>
+            </section>
+        </div>
+    </main>
+    <section class="account-info" id="accountInfo" style="display: none;">
+        <h2>Account Information</h2>
+        <p id="accountDetails"></p>
+        <button onclick="copyToClipboard()">Copy</button>
+    </section>
+
+    <!-- Menu Button -->
+    <button class="menu-button" id="menuButton">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Menu -->
+    <div class="menu" id="menu">
+        <a href="index.html">Home</a>
+        <a href="exchange.html">Exchange</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Sign Up / Sign In</a>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        function showSellDetails() {
+            const amount = document.getElementById('amount').value;
+            const sellDetails = document.getElementById('sellDetails');
+            const rate = 18.8; // Reverted selling rate
+            const total = amount * rate;
+            sellDetails.innerHTML = `
+                Selling ${amount} USDT for ${total.toFixed(2)} MVR<br>
+                ${rate} MVR / USDT<br>
+                Network: BNB Smart Chain (BEP20)<br>
+                Wallet Address: 0xe818814747fd818edf9612221fa8204229d8838c<br>
+                <button onclick="copyToClipboard('0xe818814747fd818edf9612221fa8204229d8838c')">Copy Wallet Address</button>
+            `;
+        }
+
+        function showBuyDetails() {
+            const amount = document.getElementById('buyAmount').value;
+            const buyDetails = document.getElementById('buyDetails');
+            const rate = 20.1; // Reverted buying rate
+            const total = amount * rate;
+            buyDetails.innerHTML = `
+                Buying ${amount} USDT for ${total.toFixed(2)} MVR<br>
+                ${rate} MVR / USDT<br>
+                Account Number: 90103101325241000 (Ahmed Fixal)<br>
+                <button onclick="copyToClipboard('90103101325241000')">Copy Account Number</button>
+            `;
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard');
+            });
+        }
+
+        function submitSell() {
+            const amount = document.getElementById('amount').value;
+            const accountNumber = document.getElementById('accountNumber').value;
+            if (!accountNumber) {
+                alert("Account number is required to sell USDT");
+                return;
+            }
+            // Process selling USDT
+            // ...existing code...
+        }
+
+        function submitBuy() {
+            const amount = document.getElementById('buyAmount').value;
+            const walletAddress = document.getElementById('walletAddress').value;
+            if (!walletAddress) {
+                alert("Wallet address is required to buy USDT");
+                return;
+            }
+            // Process buying USDT
+            // ...existing code...
+        }
+
+        document.getElementById('buyForm').addEventListener('input', function() {
+            showBuyDetails();
+        });
+
+        document.getElementById('exchangeForm').addEventListener('input', function() {
+            showSellDetails();
+        });
+
+        document.getElementById('menuButton').addEventListener('click', function() {
+            document.getElementById('menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

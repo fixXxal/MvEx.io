@@ -1,0 +1,770 @@
+:root {
+    --primary-color: #4CAF50; /* Green */
+    --secondary-color: #FFC107; /* Amber */
+    --background-color: #1E1E1E; /* Dark Gray */
+    --header-color: #3E4E50; /* Dark Gray */
+    --box-background-color: #2E2E2E; /* Darker Gray */
+    --box-border-color: #444444; /* Light Gray */
+    --text-color: #FFFFFF; /* White */
+    --animation-duration: 3s;
+    --animation-delay: 1s;
+    --menu-button-color: #4CAF50; /* Green */
+    --menu-button-hover-color: #FFC107; /* Amber */
+    --menu-button-glow: rgba(76, 175, 80, 0.5); /* Green glow */
+    --menu-button-bg: #4CAF50; /* Green */
+    --menu-button-hover-bg: #FFC107; /* Amber */
+    --menu-button-text-color: #FFFFFF; /* White */
+    --menu-button-hover-text-color: #000000; /* Black */
+    --menu-item-hover-bg: rgba(255, 255, 255, 0.1); /* Light glow */
+    --menu-item-hover-color: #FFC107; /* Amber */
+}
+
+body {
+    font-family: 'Roboto', sans-serif; /* Use a modern font */
+    margin: 0;
+    padding: 0;
+    background: var(--background-color); /* Change background to dark theme */
+    color: var(--text-color); /* Change text color */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Allow vertical scrolling */
+    position: relative;
+    padding-top: 0; /* Remove padding for navbar */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+body.fade-out {
+    animation: fadeOut 0.5s forwards;
+}
+
+/* Remove header styles */
+header {
+    display: none;
+}
+
+nav {
+    display: none;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    nav ul {
+        flex-direction: column;
+        background-color: var(--background-color);
+        position: absolute;
+        top: 50px;
+        left: -250px; /* Hide menu off-screen */
+        width: 250px;
+        transition: left 0.3s ease-in-out;
+    }
+
+    nav ul.show {
+        left: 0; /* Show menu */
+    }
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Adjust padding */
+    margin-top: 0; /* Adjust margin to prevent overlap */
+    overflow-y: auto; /* Ensure main content is scrollable */
+    background: transparent; /* Remove background from main */
+    position: relative;
+    z-index: 1;
+}
+
+.exchange-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px 0;
+}
+
+.exchange-box {
+    background-color: var(--box-background-color); /* Change background color */
+    border: 1px solid var(--box-border-color); /* Change border color */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn var(--animation-duration) ease-in-out;
+}
+
+.exchange-box h2 {
+    margin-top: 0;
+}
+
+.exchange-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.exchange-box label {
+    margin-bottom: 5px;
+}
+
+.exchange-box input {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid var(--box-border-color); /* Change border color */
+    border-radius: 4px;
+    color: var(--text-color); /* Change input text color */
+    background-color: var(--box-background-color); /* Change input background color */
+}
+
+.exchange-box button {
+    padding: 10px;
+    background-color: var(--primary-color); /* Change button background color */
+    color: var(--text-color); /* Change button text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.exchange-box button:hover {
+    background-color: var(--secondary-color); /* Change button hover background color */
+}
+
+.wallet-content {
+    border: 1px solid var(--box-border-color); /* Match the border color of other boxes */
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--box-background-color); /* Change background color */
+    color: var(--text-color); /* Change text color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add animation */
+    animation: float var(--animation-duration) ease-in-out infinite; /* Add floating animation */
+}
+
+.wallet-content:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.exchange-box, .buy-box {
+    border: 1px solid var(--box-border-color); /* Change border color */
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--box-background-color); /* Change background color */
+    color: var(--text-color); /* Change text color */
+}
+
+.exchange-box:hover, .buy-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.unique-animation {
+    transition: transform 1s, opacity 1s;
+    animation: pulse var(--animation-duration) infinite;
+    border: 2px solid var(--primary-color); /* Add border */
+    border-radius: 10px; /* Add border radius */
+    padding: 20px; /* Add padding */
+}
+
+.unique-animation.animate {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.unique-animation.click-animate {
+    animation: clickPulse 1s forwards;
+}
+
+.left-box {
+    transform: translateX(-100%);
+    opacity: 0;
+    animation: slideInLeft 1s forwards;
+}
+
+.right-box {
+    transform: translateX(100%);
+    opacity: 0;
+    animation: slideInRight 1s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes clickPulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@container (min-width: 600px) {
+    .exchange-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@container (min-width: 900px) {
+    .exchange-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.box {
+    border: 1px solid var(--box-border-color); /* Match the border color of other boxes */
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--box-background-color); /* Change background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.contact-animation {
+    transition: transform 1s, opacity 1s;
+    background-color: var(--box-background-color); /* Change background color */
+    border: 1px solid var(--box-border-color); /* Match the border color of other boxes */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-color); /* Change text color */
+    animation: glow 2s ease-in-out infinite; /* Add glowing animation */
+}
+
+.contact-animation.animate {
+    transform: scale(1.1);
+    opacity: 0.5;
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); /* Green glow */
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(76, 175, 80, 1); /* Green glow */
+    }
+}
+
+.balance-section {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
+}
+
+.balance-section h3 {
+    margin-bottom: 10px;
+}
+
+.balance-section p {
+    margin: 5px 0;
+}
+
+.transaction-section {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.transaction-section h3 {
+    margin-bottom: 10px;
+}
+
+.transaction-section table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transaction-section th, .transaction-section td {
+    border: 1px solid var(--box-border-color); /* Change border color */
+    padding: 10px;
+    text-align: left;
+    color: var(--text-color); /* Change text color */
+    font-family: 'Roboto', sans-serif; /* Use a modern font */
+}
+
+.transaction-section th {
+    background-color: var(--box-border-color); /* Change background color */
+    color: var(--text-color); /* Change text color */
+}
+
+.balance-section h3, .balance-section p {
+    color: var(--text-color); /* Change text color */
+    font-family: 'Roboto', sans-serif; /* Use a modern font */
+}
+
+/* Particle effect */
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background: var(--background-color);
+}
+
+/* Navbar Styles */
+.navbar {
+    background: var(--background-color); /* Match the page background */
+    backdrop-filter: blur(10px); /* Glass effect */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 0;
+    z-index: 1000;
+    animation: navbarSlideIn 1s ease-in-out; /* Add slide-in animation */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between; /* Adjust for better spacing */
+    align-items: center;
+    padding: 0 20px;
+    background-color: var(--box-background-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* Ensure items wrap on small screens */
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.menu-toggle {
+    display: none; /* Hide by default */
+    cursor: pointer;
+}
+
+.menu-toggle i {
+    font-size: 24px;
+    color: black;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Hide nav links by default */
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links.active {
+        display: flex; /* Show nav links when active */
+    }
+
+    .menu-toggle {
+        display: block; /* Show menu toggle on mobile */
+    }
+
+    .login-box {
+        width: 90%; /* Adjust width for mobile */
+    }
+
+    .exchange-container {
+        grid-template-columns: 1fr; /* Single column layout for mobile */
+    }
+
+    .exchange-box {
+        margin: 10px 0; /* Adjust margin for mobile */
+    }
+}
+
+.logo-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.logo {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+@keyframes navbarSlideIn {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#usdt-box {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: var(--primary-color);
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+#usdt-box.broken {
+    transform: rotate(10deg) scale(1.1);
+    background-color: red;
+}
+
+#usdt-box.fix {
+    transform: rotate(0deg) scale(1);
+    background-color: var(--primary-color);
+}
+
+.form-container {
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid var(--box-border-color);
+    border-radius: 5px;
+    color: var(--text-color);
+    background-color: var(--box-background-color);
+}
+
+button {
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.login-box {
+    background-color: var(--box-background-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    margin: 20px auto;
+    animation: fallDown 1s ease-in-out forwards;
+}
+
+@keyframes fallDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.nav-links li a {
+    color: white; /* Set the menu text color to white */
+    text-decoration: none;
+}
+
+/* Mobile view adjustments */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Initially hide the menu */
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links.active {
+        display: flex; /* Show the menu when active */
+    }
+
+    .menu-toggle {
+        display: block; /* Show the menu toggle button */
+        cursor: pointer;
+    }
+
+    .menu-toggle i {
+        color: white; /* Set the toggle icon color to white */
+    }
+}
+
+.menu-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--menu-button-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--menu-button-glow);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1000;
+}
+
+.menu-button:hover {
+    background-color: var(--menu-button-hover-color);
+    box-shadow: 0 0 20px var(--menu-button-glow);
+}
+
+.menu-button i {
+    font-size: 24px;
+}
+
+.menu {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    background-color: var(--box-background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    z-index: 1000;
+    animation: menuSlideIn 0.3s ease-in-out;
+}
+
+.menu.active {
+    display: flex;
+}
+
+.menu a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.5s forwards;
+}
+
+.menu a:hover {
+    background-color: var(--menu-item-hover-bg);
+    color: var(--menu-item-hover-color);
+    box-shadow: 0 0 10px var(--menu-button-glow);
+    transform: scale(1.05);
+}
+
+.menu a:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.menu a:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.menu a:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.menu a:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes menuSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menu-button {
+    position: fixed;
+    top: -100px; /* Start off-screen */
+    left: 20px;
+    background-color: var(--menu-button-bg);
+    color: var(--menu-button-text-color);
+    border: none;
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease, color 0.3s ease, top 0.5s ease, transform 0.3s ease;
+    z-index: 1000;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.menu-button:hover {
+    background-color: var(--menu-button-hover-bg);
+    color: var(--menu-button-hover-text-color);
+}
+
+.menu-button.clicked {
+    top: 20px; /* Move to the top left side */
+    transform: translateY(0);
+}
+
+.menu-button:active {
+    transform: scale(0.95); /* Slight bounce effect */
+}
+
